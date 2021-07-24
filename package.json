@@ -31,11 +31,11 @@
   },
   "lint-staged": {
     "src/**/*.{js,ts,tsx}": [
-      "prettier",
-      "lint"
+      "npm run prettier",
+      "npm run lint"
     ],
     "*.{json,md,html}": [
-      "prettier --write"
+      "npm run prettier --write"
     ]
   },
   "dependencies": {
