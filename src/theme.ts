@@ -1,6 +1,11 @@
 import { createTheme } from '@material-ui/core/styles';
 import {
-  purple, red, gray, grayDark,
+  white,
+  purple,
+  red,
+  gray,
+  grayDark,
+  garyLight,
 } from './constants/colors';
 
 const theme = createTheme({
@@ -14,6 +19,18 @@ const theme = createTheme({
     background: {
       default: gray,
       paper: grayDark,
+    },
+  },
+  overrides: {
+    MuiTableCell: {
+      head: {
+        color: garyLight,
+        fontWeight: 'bold',
+      },
+      body: {
+        color: white,
+        fontWeight: 'bold',
+      },
     },
   },
 });
