@@ -1,3 +1,9 @@
+import Footer from '../../templates/Footer';
+
 export default function Home(): JSX.Element {
-  return <div>Home</div>;
+  return (
+    <div>
+      <Footer />
+    </div>
+  );
 }
