@@ -5,7 +5,6 @@ import {
   TableBody,
   TableCell,
 } from '@material-ui/core';
-// import TableCell from '../../atoms/TableCell';
 import { headerValues } from '../../../constants/table';
 
 export default function Table(): JSX.Element {
