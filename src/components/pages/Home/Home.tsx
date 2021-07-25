@@ -1,9 +1,10 @@
+import { Container } from '@material-ui/core';
 import Footer from '../../templates/Footer';
 
 export default function Home(): JSX.Element {
   return (
-    <div>
+    <Container maxWidth="sm">
       <Footer />
-    </div>
+    </Container>
   );
 }
