@@ -1,19 +1,19 @@
 import { createTheme } from '@material-ui/core/styles';
+import {
+  purple, red, gray, grayDark,
+} from './constants/colors';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#5741d9',
+      main: purple,
     },
     secondary: {
-      main: '#b91d1d',
-    },
-    error: {
-      main: '#b91d1d',
+      main: red,
     },
     background: {
-      default: '#28303e',
-      paper: '#121723',
+      default: gray,
+      paper: grayDark,
     },
   },
 });
