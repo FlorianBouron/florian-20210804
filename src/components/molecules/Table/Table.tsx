@@ -1,24 +1,18 @@
 import {
-  Table as TableMaterial,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableCell,
+  Table as TableMaterial, TableRow, TableBody, TableCell,
 } from '@material-ui/core';
+import TableHead from '../TableHead';
 import { headerValues } from '../../../constants/table';
+import TableSideType from '../../../enums/tableSideType';
 
-export default function Table(): JSX.Element {
+type TableProps = {
+  type: TableSideType;
+};
+
+export default function Table({ type }: TableProps): JSX.Element {
   return (
     <TableMaterial>
-      <TableHead>
-        <TableRow>
-          {headerValues.map((header) => (
-            <TableCell size="small" align="center" key={header}>
-              {header}
-            </TableCell>
-          ))}
-        </TableRow>
-      </TableHead>
+      <TableHead type={type} />
       <TableBody>
         <TableRow>
           {headerValues.map((header) => (
