@@ -12,14 +12,18 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Footer(): JSX.Element {
+type FooterProps = {
+  onKillFeed: () => void;
+};
+
+export default function Footer({ onKillFeed }: FooterProps): JSX.Element {
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <Button className={classes.button} variant="contained" color="primary">
         Toggle Feed
       </Button>
-      <Button className={classes.button} variant="contained" color="secondary">
+      <Button className={classes.button} variant="contained" color="secondary" onClick={onKillFeed}>
         Kill Feed
       </Button>
     </div>
