@@ -16,13 +16,13 @@ export default function TableBody({ type }: TableBodyProps): JSX.Element {
         return (
           <TableRow key={`${type}-${price}`}>
             <TableCell size="small" align="center">
-              {total}
+              {type === TableSideType.BIDS ? total : price}
             </TableCell>
             <TableCell size="small" align="center">
               {size}
             </TableCell>
             <TableCell size="small" align="center">
-              {price}
+              {type === TableSideType.BIDS ? price : total}
             </TableCell>
           </TableRow>
         );
