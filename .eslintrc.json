@@ -45,6 +45,7 @@
         "code": 100
       }
     ],
+    "no-nested-ternary": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/react-in-jsx-scope": "off"
