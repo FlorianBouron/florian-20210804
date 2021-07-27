@@ -1,4 +1,3 @@
-import React from 'react';
 import { TableHead as TableHeadMaterial, TableRow, TableCell } from '@material-ui/core';
 import TableSideType from '../../../enums/tableSideType';
 import { headerValues } from '../../../constants/table';
@@ -7,7 +6,7 @@ type TableProps = {
   type: TableSideType;
 };
 
-function TableHead({ type }: TableProps): JSX.Element {
+export default function TableHead({ type }: TableProps): JSX.Element {
   const headers = type === TableSideType.BIDS ? headerValues : [...headerValues].reverse();
   return (
     <TableHeadMaterial>
@@ -21,5 +20,3 @@ function TableHead({ type }: TableProps): JSX.Element {
     </TableHeadMaterial>
   );
 }
-
-export default React.memo(TableHead);
