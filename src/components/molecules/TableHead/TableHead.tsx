@@ -2,11 +2,11 @@ import { TableHead as TableHeadMaterial, TableRow, TableCell } from '@material-u
 import TableSideType from '../../../enums/tableSideType';
 import { headerValues } from '../../../constants/table';
 
-type TableProps = {
+type TableHeadProps = {
   type: TableSideType;
 };
 
-export default function TableHead({ type }: TableProps): JSX.Element {
+export default function TableHead({ type }: TableHeadProps): JSX.Element {
   const headers = type === TableSideType.BIDS ? headerValues : [...headerValues].reverse();
   return (
     <TableHeadMaterial>
