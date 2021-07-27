@@ -4,13 +4,17 @@ const ACTIONS = {
   UPDATE_ORDERS: 'ORDERS/UPDATE_ORDERS',
 };
 
+type transactionType = [price: number, size: number];
+
+type transactionWithPriceType = [price: number, size: number, total: number];
+
 type ordersType = {
-  asks: { [key: number]: number };
-  bids: { [key: number]: number };
+  asks: transactionWithPriceType[];
+  bids: transactionWithPriceType[];
 };
 type payloadType = {
-  asks: [[price: number, size: number]] | [];
-  bids: [[price: number, size: number]] | [];
+  asks: transactionType[] | [];
+  bids: transactionType[] | [];
 };
 
 type actionType = {
@@ -24,8 +28,8 @@ type contextType = {
 };
 
 const initialOrdersState: ordersType = {
-  asks: {},
-  bids: {},
+  asks: [],
+  bids: [],
 };
 
 const CountContext = React.createContext<contextType>({
@@ -34,23 +38,65 @@ const CountContext = React.createContext<contextType>({
   setOrders: () => {},
 });
 
+/*
+  This function cleans and merges the transactions (asks and bids)
+*/
+const updateTransaction = (
+  newTransactions: transactionType[],
+  previousTransactions: transactionWithPriceType[],
+): transactionType[] => {
+  const previousTransactionsObj: { [key: number]: number } = {};
+  previousTransactions.forEach((transaction) => {
+    const [price, size] = transaction;
+    previousTransactionsObj[price] = size;
+  });
+
+  newTransactions.forEach((transaction) => {
+    const [price, size] = transaction;
+    if (size === 0) {
+      delete previousTransactionsObj[price];
+    } else {
+      previousTransactionsObj[price] = size;
+    }
+  });
+
+  return Object.keys(previousTransactionsObj).map((price) => {
+    const priceNumber = Number(price);
+    return [priceNumber, previousTransactionsObj[priceNumber]];
+  });
+};
+
+/*
+  This function orders the transactions (asks and bids)
+*/
+const orderTransaction = (transactions: transactionType[]): transactionType[] => {
+  const orderedTransactions = transactions.sort((a, b) => a[0] - b[0]);
+  // We are returning only the first 16th results
+  return orderedTransactions.splice(0, 16);
+};
+
+/*
+  This function calculate prices of the transactions (asks and bids)
+*/
+const calculatePrices = (transactions: transactionType[]): transactionWithPriceType[] => {
+  const transactionsWithPrices: transactionWithPriceType[] = [];
+  transactions.forEach((transaction: transactionType) => {
+    const [price, size] = transaction;
+    const previousTransaction = transactionsWithPrices[transactionsWithPrices.length - 1];
+    const total = previousTransaction ? previousTransaction[2] + size : size;
+    transactionsWithPrices.push([price, size, total]);
+  });
+  return transactionsWithPrices;
+};
+
 function ordersReducer(state: ordersType, { type, payload }: actionType): ordersType {
   switch (type) {
     case ACTIONS.UPDATE_ORDERS: {
       const { asks, bids } = payload;
-      const asksObject: { [key: number]: number } = {};
-      const bidsObject: { [key: number]: number } = {};
-      asks.forEach((ask) => {
-        const [price, size] = ask;
-        asksObject[price] = size;
-      });
-      bids.forEach((bid) => {
-        const [price, size] = bid;
-        bidsObject[price] = size;
-      });
-      const newAsks = { ...state.asks, ...asksObject };
-      const newBids = { ...state.bids, ...bidsObject };
-      return { asks: newAsks, bids: newBids };
+      return {
+        asks: calculatePrices(orderTransaction(updateTransaction(asks, state.asks))),
+        bids: calculatePrices(orderTransaction(updateTransaction(bids, state.bids))),
+      };
     }
     default:
       return state;

@@ -1,19 +1,32 @@
 import { TableRow, TableBody as TableBodyMaterial, TableCell } from '@material-ui/core';
 import { useOrders } from '../../../contexts/OrdersContext';
-import { headerValues } from '../../../constants/table';
+import TableSideType from '../../../enums/tableSideType';
 
-export default function TableBody(): JSX.Element {
+type TableBodyProps = {
+  type: TableSideType;
+};
+
+export default function TableBody({ type }: TableBodyProps): JSX.Element {
   const { orders } = useOrders();
-  console.log(orders);
+  const rows = orders[type];
   return (
     <TableBodyMaterial>
-      <TableRow>
-        {headerValues.map((header) => (
-          <TableCell size="small" align="center" key={`non-header${header}`}>
-            {header}
-          </TableCell>
-        ))}
-      </TableRow>
+      {rows.map((row): JSX.Element => {
+        const [price, size, total] = row;
+        return (
+          <TableRow key={`${type}-${price}`}>
+            <TableCell size="small" align="center">
+              {total}
+            </TableCell>
+            <TableCell size="small" align="center">
+              {size}
+            </TableCell>
+            <TableCell size="small" align="center">
+              {price}
+            </TableCell>
+          </TableRow>
+        );
+      })}
     </TableBodyMaterial>
   );
 }

@@ -11,7 +11,7 @@ export default function Table({ type }: TableProps): JSX.Element {
   return (
     <TableMaterial>
       <TableHead type={type} />
-      <TableBody />
+      <TableBody type={type} />
     </TableMaterial>
   );
 }
