@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Home from './components/pages/Home';
+import { OrdersProvider } from './contexts/OrdersContext';
 import reportWebVitals from './reportWebVitals';
 import theme from './theme';
 
@@ -10,7 +11,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Home />
+      <OrdersProvider>
+        <Home />
+      </OrdersProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root'),

@@ -1,3 +1,4 @@
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 
@@ -16,7 +17,7 @@ type FooterProps = {
   onKillFeed: () => void;
 };
 
-export default function Footer({ onKillFeed }: FooterProps): JSX.Element {
+function Footer({ onKillFeed }: FooterProps): JSX.Element {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -29,3 +30,5 @@ export default function Footer({ onKillFeed }: FooterProps): JSX.Element {
     </div>
   );
 }
+
+export default React.memo(Footer, () => true);
