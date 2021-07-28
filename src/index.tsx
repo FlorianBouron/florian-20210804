@@ -1,12 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Home from './components/pages/Home';
+import { OrdersProvider } from './contexts/OrdersContext';
 import reportWebVitals from './reportWebVitals';
+import theme from './theme';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <OrdersProvider>
+        <Home />
+      </OrdersProvider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
