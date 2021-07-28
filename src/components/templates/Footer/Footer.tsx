@@ -15,13 +15,19 @@ const useStyles = makeStyles(() => ({
 
 type FooterProps = {
   onKillFeed: () => void;
+  onChangeMarket: () => void;
 };
 
-function Footer({ onKillFeed }: FooterProps): JSX.Element {
+function Footer({ onKillFeed, onChangeMarket }: FooterProps): JSX.Element {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Button className={classes.button} variant="contained" color="primary">
+      <Button
+        className={classes.button}
+        variant="contained"
+        color="primary"
+        onClick={onChangeMarket}
+      >
         Toggle Feed
       </Button>
       <Button className={classes.button} variant="contained" color="secondary" onClick={onKillFeed}>
