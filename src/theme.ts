@@ -1,11 +1,6 @@
 import { createTheme } from '@material-ui/core/styles';
 import {
-  white,
-  purple,
-  red,
-  gray,
-  grayDark,
-  garyLight,
+  white, purple, red, gray, grayDark, garyLight,
 } from './constants/colors';
 
 const theme = createTheme({
@@ -31,6 +26,16 @@ const theme = createTheme({
         color: white,
         fontWeight: 'bold',
       },
+    },
+    MuiSelect: {
+      root: {
+        color: white,
+      },
+    },
+  },
+  typography: {
+    allVariants: {
+      color: white,
     },
   },
 });
