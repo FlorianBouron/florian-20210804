@@ -51,6 +51,7 @@ export default function Home(): JSX.Element {
     onError: (_message: string) => console.log(_message),
     onMessage,
     group,
+    isSocketClosed,
   });
 
   const handleChangeMarket = (): void => {
@@ -61,7 +62,9 @@ export default function Home(): JSX.Element {
   };
 
   const handleKillFeed = (): void => {
-    closeSocket();
+    if (isSocketClosed === false) {
+      closeSocket();
+    }
     setIsSocketClosed((prevState) => !prevState);
   };
 
