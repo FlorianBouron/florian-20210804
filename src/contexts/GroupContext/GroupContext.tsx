@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { initialGroupState } from '../../constants/group';
+import { INITIAL_GROUP_STATE } from '../../constants/groups';
 
 type contextType = {
   group: number;
@@ -7,7 +7,7 @@ type contextType = {
 };
 
 const GroupContext = React.createContext<contextType>({
-  group: initialGroupState,
+  group: INITIAL_GROUP_STATE,
   // eslint-disable-next-line max-len
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
   updateGroup: (group: number) => {},
@@ -18,7 +18,7 @@ function useGroup(): contextType {
 }
 
 const GroupProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
-  const [group, setGroup] = useState(initialGroupState);
+  const [group, setGroup] = useState(INITIAL_GROUP_STATE);
 
   const updateGroup = (newGroup: number): void => {
     setGroup(newGroup);

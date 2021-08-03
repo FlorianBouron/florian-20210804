@@ -1,13 +1,14 @@
 import { Typography, Select, MenuItem } from '@material-ui/core';
 import { useGroup } from '../../../contexts/GroupContext';
 import { XBTUSD, marketType } from '../../../constants/markets';
+import { XBTUSD_GROUP, ETHUSD_GROUP } from '../../../constants/groups';
 
 type HeaderProps = {
   market: marketType;
 };
 
 export default function Header({ market }: HeaderProps): JSX.Element {
-  const groups = market === XBTUSD ? [0.5, 1, 2.5] : [0.05, 0.1, 0.25];
+  const groups = market === XBTUSD ? XBTUSD_GROUP : ETHUSD_GROUP;
   const { group, updateGroup } = useGroup();
 
   const handleChange = (e: React.ChangeEvent<{ value: unknown }>): void => {
