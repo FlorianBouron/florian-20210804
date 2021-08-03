@@ -1,12 +1,11 @@
 import { useEffect, useRef } from 'react';
 import SocketState from '../enums/socket';
+import { marketType } from '../constants/markets';
+import { messageType } from '../types/message';
 
 type useSocketProps = {
   url: string;
-  message: {
-    feed: string;
-    product_ids: string[];
-  };
+  message: messageType;
   group: number;
   onError: (_message: string) => void;
   onMessage: (res: MessageEvent) => void;
@@ -24,6 +23,7 @@ export default function useSocket({
   group,
 }: useSocketProps): useSocketReturn {
   const socketRef = useRef<WebSocket>();
+  const currentProduct = useRef<marketType[]>();
 
   const closeSocket = (): void => {
     try {
@@ -34,7 +34,10 @@ export default function useSocket({
         socketRef.current.send(
           JSON.stringify({
             ...message,
-            ...{ event: 'unsubscribe' },
+            ...{
+              product_ids: currentProduct.current,
+              event: 'unsubscribe',
+            },
           }),
         );
       }
@@ -47,6 +50,7 @@ export default function useSocket({
     closeSocket();
     try {
       socketRef.current = new WebSocket(url);
+      currentProduct.current = message.product_ids;
 
       socketRef.current.onerror = () => {
         onError('Something went wrong');
@@ -64,7 +68,7 @@ export default function useSocket({
       onError('Impossible to connect');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url, message, group]);
+  }, [url, message.product_ids[0], group]);
 
   return {
     closeSocket,

@@ -38,7 +38,13 @@ export default function Home(): JSX.Element {
 
   const { closeSocket } = useSocket({
     url: endpoint,
-    message,
+    message:
+      market === XBTUSD
+        ? message
+        : {
+          ...message,
+          ...{ product_ids: [ETHUSD] },
+        },
     onError: (_message: string) => console.log(_message),
     onMessage,
     group,
