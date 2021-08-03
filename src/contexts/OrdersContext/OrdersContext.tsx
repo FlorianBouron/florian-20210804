@@ -16,6 +16,7 @@ type ordersType = {
   asks: transactionWithPriceType[];
   bids: transactionWithPriceType[];
 };
+
 type payloadType = {
   asks: transactionType[] | [];
   bids: transactionType[] | [];

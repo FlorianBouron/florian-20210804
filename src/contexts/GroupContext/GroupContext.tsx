@@ -1,11 +1,10 @@
 import React, { useContext, useState } from 'react';
+import { initialGroupState } from '../../constants/group';
 
 type contextType = {
   group: number;
   updateGroup: (group: number) => void;
 };
-
-const initialGroupState = 0.5;
 
 const GroupContext = React.createContext<contextType>({
   group: initialGroupState,
