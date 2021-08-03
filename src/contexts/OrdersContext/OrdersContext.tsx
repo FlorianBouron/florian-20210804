@@ -19,6 +19,7 @@ type ordersType = {
 type payloadType = {
   asks: transactionType[] | [];
   bids: transactionType[] | [];
+  group: number;
 };
 
 type actionType = {
@@ -45,16 +46,16 @@ const CountContext = React.createContext<contextType>({
 function ordersReducer(state: ordersType, { type, payload }: actionType): ordersType {
   switch (type) {
     case ACTIONS.UPDATE_ORDERS: {
-      const { asks, bids } = payload;
+      const { asks, bids, group } = payload;
       return {
         asks: calculatePrices(
           firstResults(
-            groupBySelectedMarketTick(orderTransaction(updateTransaction(asks, state.asks)), 0.5),
+            groupBySelectedMarketTick(orderTransaction(updateTransaction(asks, state.asks)), group),
           ),
         ),
         bids: calculatePrices(
           firstResults(
-            groupBySelectedMarketTick(orderTransaction(updateTransaction(bids, state.bids)), 0.5),
+            groupBySelectedMarketTick(orderTransaction(updateTransaction(bids, state.bids)), group),
           ),
         ),
       };

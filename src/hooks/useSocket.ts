@@ -7,6 +7,7 @@ type useSocketProps = {
     feed: string;
     product_ids: string[];
   };
+  group: number;
   onError: (_message: string) => void;
   onMessage: (res: MessageEvent) => void;
 };
@@ -20,6 +21,7 @@ export default function useSocket({
   message,
   onError,
   onMessage,
+  group,
 }: useSocketProps): useSocketReturn {
   const socketRef = useRef<WebSocket>();
 
@@ -42,6 +44,7 @@ export default function useSocket({
   };
 
   useEffect(() => {
+    closeSocket();
     try {
       socketRef.current = new WebSocket(url);
 
@@ -61,7 +64,7 @@ export default function useSocket({
       onError('Impossible to connect');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url, message]);
+  }, [url, message, group]);
 
   return {
     closeSocket,

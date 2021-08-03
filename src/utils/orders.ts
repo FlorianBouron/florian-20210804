@@ -31,6 +31,7 @@ export const updateTransaction = (
 /*
     This function orders the transactions (asks and bids)
   */
+// eslint-disable-next-line max-len
 export const orderTransaction = (transactions: transactionType[]): transactionType[] => transactions.sort((a, b) => a[0] - b[0]);
 
 /*
@@ -90,4 +91,5 @@ export const groupBySelectedMarketTick = (
 /*
     This function returns the first 16th results
   */
+// eslint-disable-next-line max-len
 export const firstResults = (transactions: transactionType[]): transactionType[] => transactions.splice(0, 16);

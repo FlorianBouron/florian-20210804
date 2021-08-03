@@ -4,6 +4,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Home from './components/pages/Home';
 import { OrdersProvider } from './contexts/OrdersContext';
+import { GroupProvider } from './contexts/GroupContext';
 import reportWebVitals from './reportWebVitals';
 import theme from './theme';
 
@@ -11,9 +12,11 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <OrdersProvider>
-        <Home />
-      </OrdersProvider>
+      <GroupProvider>
+        <OrdersProvider>
+          <Home />
+        </OrdersProvider>
+      </GroupProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root'),
