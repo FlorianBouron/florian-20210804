@@ -15,6 +15,10 @@ const theme = createTheme({
       default: gray,
       paper: grayDark,
     },
+    action: {
+      disabledBackground: garyLight,
+      disabled: grayDark,
+    },
   },
   overrides: {
     MuiTableCell: {
