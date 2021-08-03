@@ -6,9 +6,10 @@ import { marketType } from '../../../types/market';
 
 type HeaderProps = {
   market: marketType;
+  isSocketClosed: boolean;
 };
 
-export default function Header({ market }: HeaderProps): JSX.Element {
+export default function Header({ market, isSocketClosed }: HeaderProps): JSX.Element {
   const groups = market === XBTUSD ? XBTUSD_GROUP : ETHUSD_GROUP;
   const { group, updateGroup } = useGroup();
 
@@ -20,7 +21,7 @@ export default function Header({ market }: HeaderProps): JSX.Element {
     <>
       <Typography display="inline">Order book</Typography>
       <Typography display="inline">{market}</Typography>
-      <Select value={group} onChange={handleChange}>
+      <Select value={group} onChange={handleChange} disabled={isSocketClosed}>
         {groups.map((groupChoice: number) => (
           <MenuItem key={groupChoice} value={groupChoice}>
             {`Group ${groupChoice}`}

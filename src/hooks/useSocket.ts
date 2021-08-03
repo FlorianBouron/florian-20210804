@@ -7,6 +7,7 @@ type useSocketProps = {
   url: string;
   message: messageType;
   group: number;
+  isSocketClosed: boolean;
   onError: (_message: string) => void;
   onMessage: (res: MessageEvent) => void;
 };
@@ -21,6 +22,7 @@ export default function useSocket({
   onError,
   onMessage,
   group,
+  isSocketClosed,
 }: useSocketProps): useSocketReturn {
   const socketRef = useRef<WebSocket>();
   const currentProduct = useRef<marketType[]>();
@@ -47,28 +49,30 @@ export default function useSocket({
   };
 
   useEffect(() => {
-    closeSocket();
-    try {
-      socketRef.current = new WebSocket(url);
-      currentProduct.current = message.product_ids;
+    if (!isSocketClosed) {
+      closeSocket();
+      try {
+        socketRef.current = new WebSocket(url);
+        currentProduct.current = message.product_ids;
 
-      socketRef.current.onerror = () => {
-        onError('Something went wrong');
-      };
-
-      // eslint-disable-next-line func-names
-      socketRef.current.onopen = function () {
-        this.send(JSON.stringify({ ...message, ...{ event: 'subscribe' } }));
-
-        this.onmessage = (res: MessageEvent) => {
-          onMessage(res);
+        socketRef.current.onerror = () => {
+          onError('Something went wrong');
         };
-      };
-    } catch (_) {
-      onError('Impossible to connect');
+
+        // eslint-disable-next-line func-names
+        socketRef.current.onopen = function () {
+          this.send(JSON.stringify({ ...message, ...{ event: 'subscribe' } }));
+
+          this.onmessage = (res: MessageEvent) => {
+            onMessage(res);
+          };
+        };
+      } catch (_) {
+        onError('Impossible to connect');
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url, message.product_ids[0], group]);
+  }, [url, message.product_ids[0], group, isSocketClosed]);
 
   return {
     closeSocket,

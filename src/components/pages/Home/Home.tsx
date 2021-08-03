@@ -25,6 +25,7 @@ export default function Home(): JSX.Element {
   const { setOrders } = useOrders();
   const { group, updateGroup } = useGroup();
   const [market, setMarket] = useState<marketType>(XBTUSD);
+  const [isSocketClosed, setIsSocketClosed] = useState(false);
 
   const onMessage = (res: MessageEvent): void => {
     const { asks, bids } = JSON.parse(res.data);
@@ -50,6 +51,7 @@ export default function Home(): JSX.Element {
     onError: (_message: string) => console.log(_message),
     onMessage,
     group,
+    isSocketClosed,
   });
 
   const handleChangeMarket = (): void => {
@@ -59,10 +61,21 @@ export default function Home(): JSX.Element {
     });
   };
 
+  const handleKillFeed = (): void => {
+    if (isSocketClosed === false) {
+      closeSocket();
+    }
+    setIsSocketClosed((prevState) => !prevState);
+  };
+
   return (
     <Container maxWidth="sm" className={classes.root}>
-      <OrderBook market={market} />
-      <Footer onKillFeed={closeSocket} onChangeMarket={handleChangeMarket} />
+      <OrderBook market={market} isSocketClosed={isSocketClosed} />
+      <Footer
+        onKillFeed={handleKillFeed}
+        onChangeMarket={handleChangeMarket}
+        isSocketClosed={isSocketClosed}
+      />
     </Container>
   );
 }
