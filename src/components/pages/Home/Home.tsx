@@ -9,7 +9,8 @@ import { useGroup } from '../../../contexts/GroupContext';
 import { useOrders } from '../../../contexts/OrdersContext';
 import { endpoint, message } from '../../../constants/socket';
 import { grayDark } from '../../../constants/colors';
-import { XBTUSD, ETHUSD, marketType } from '../../../constants/markets';
+import { XBTUSD, ETHUSD } from '../../../constants/markets';
+import { marketType } from '../../../types/market';
 
 const useStyles = makeStyles(() => ({
   root: {

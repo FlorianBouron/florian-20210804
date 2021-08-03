@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import SocketState from '../enums/socket';
-import { marketType } from '../constants/markets';
+import { marketType } from '../types/market';
 import { messageType } from '../types/message';
 
 type useSocketProps = {

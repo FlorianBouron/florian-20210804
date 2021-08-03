@@ -1,4 +1,4 @@
-import { marketType } from '../constants/markets';
+import { marketType } from './market';
 
 export type messageType = {
   feed: string;

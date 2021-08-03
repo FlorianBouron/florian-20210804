@@ -1,7 +1,8 @@
 import { Typography, Select, MenuItem } from '@material-ui/core';
 import { useGroup } from '../../../contexts/GroupContext';
-import { XBTUSD, marketType } from '../../../constants/markets';
+import { XBTUSD } from '../../../constants/markets';
 import { XBTUSD_GROUP, ETHUSD_GROUP } from '../../../constants/groups';
+import { marketType } from '../../../types/market';
 
 type HeaderProps = {
   market: marketType;
