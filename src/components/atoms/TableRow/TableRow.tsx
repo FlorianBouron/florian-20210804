@@ -18,7 +18,9 @@ export default function TableRow({ children, type, depth }: TableRowProps): JSX.
   return (
     <TableRowMaterial
       style={{
-        background: `linear-gradient(${direction}, ${color}, ${color} ${depth}%, transparent ${depth}%)`,
+        background: `linear-gradient(
+          ${direction}, ${color}, ${color} ${depth}%, transparent ${depth}%
+        )`,
       }}
     >
       {children}

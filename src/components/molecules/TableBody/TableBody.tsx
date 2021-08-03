@@ -17,7 +17,7 @@ export default function TableBody({ type }: TableBodyProps): JSX.Element {
         const [price, size, total] = row;
         return (
           <TableRow
-            key={`${type}-${price}`}
+            key={`${price}-${size}`}
             type={type}
             depth={Math.round((total / rows[rows.length - 1][2]) * 100)}
           >
