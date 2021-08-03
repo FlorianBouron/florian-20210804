@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core';
 import Table from '../../molecules/Table';
 import TableSideType from '../../../enums/tableSideType';
 import Header from '../../templates/Header';
-import { marketType } from '../../../constants/markets';
+import { marketType } from '../../../types/market';
 
 type HeaderProps = {
   market: marketType;
