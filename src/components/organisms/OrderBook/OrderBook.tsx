@@ -7,13 +7,14 @@ import { marketType } from '../../../types/market';
 
 type HeaderProps = {
   market: marketType;
+  isSocketClosed: boolean;
 };
 
-function OrderBook({ market }: HeaderProps): JSX.Element {
+function OrderBook({ market, isSocketClosed }: HeaderProps): JSX.Element {
   return (
     <Grid container>
       <Grid container justifyContent="space-between" alignItems="center">
-        <Header market={market} />
+        <Header market={market} isSocketClosed={isSocketClosed} />
       </Grid>
       <Grid item xs={12} sm={6}>
         <Table type={TableSideType.BIDS} />

@@ -70,7 +70,7 @@ export default function Home(): JSX.Element {
 
   return (
     <Container maxWidth="sm" className={classes.root}>
-      <OrderBook market={market} />
+      <OrderBook market={market} isSocketClosed={isSocketClosed} />
       <Footer
         onKillFeed={handleKillFeed}
         onChangeMarket={handleChangeMarket}
