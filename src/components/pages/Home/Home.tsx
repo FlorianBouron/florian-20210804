@@ -10,6 +10,7 @@ import { useOrders } from '../../../contexts/OrdersContext';
 import { endpoint, message } from '../../../constants/socket';
 import { grayDark } from '../../../constants/colors';
 import { XBTUSD, ETHUSD } from '../../../constants/markets';
+import { XBTUSD_GROUP, ETHUSD_GROUP } from '../../../constants/groups';
 import { marketType } from '../../../types/market';
 
 const useStyles = makeStyles(() => ({
@@ -22,7 +23,7 @@ const useStyles = makeStyles(() => ({
 export default function Home(): JSX.Element {
   const classes = useStyles();
   const { setOrders } = useOrders();
-  const { group } = useGroup();
+  const { group, updateGroup } = useGroup();
   const [market, setMarket] = useState<marketType>(XBTUSD);
 
   const onMessage = (res: MessageEvent): void => {
@@ -52,7 +53,10 @@ export default function Home(): JSX.Element {
   });
 
   const handleChangeMarket = (): void => {
-    setMarket((prevState) => (prevState === XBTUSD ? ETHUSD : XBTUSD));
+    setMarket((prevState) => {
+      updateGroup(prevState === XBTUSD ? ETHUSD_GROUP[0] : XBTUSD_GROUP[0]);
+      return prevState === XBTUSD ? ETHUSD : XBTUSD;
+    });
   };
 
   return (
